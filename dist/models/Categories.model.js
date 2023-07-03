@@ -17,7 +17,7 @@ __decorate([
     sequelize_typescript_1.AutoIncrement,
     (0, sequelize_typescript_1.AllowNull)(false),
     (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.INTEGER)
-], Category.prototype, "categoryId", void 0);
+], Category.prototype, "id", void 0);
 __decorate([
     (0, sequelize_typescript_1.AllowNull)(false),
     (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.STRING)

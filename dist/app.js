@@ -4,23 +4,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const Categories_model_1 = require("./models/Categories.model");
-const Posts_model_1 = require("./models/Posts.model");
-const Post_Categories_model_1 = require("./models/Post-Categories.model");
 const config_1 = __importDefault(require("./db/config"));
+const body_parser_1 = require("body-parser");
+const routes_1 = __importDefault(require("./routes/routes"));
 const app = (0, express_1.default)();
-async function run() {
-    try {
-        await config_1.default.authenticate();
-        console.log('Connected to the database.');
-        // Synchronize the models with the database
-        config_1.default.addModels([Categories_model_1.Category, Posts_model_1.Post, Post_Categories_model_1.PostCategory]);
-        await config_1.default.sync(); // This will create the "users" table in the database
-        // Your application code here
-    }
-    catch (error) {
-        console.error('Error connecting to the database:', error);
-    }
-}
-run();
-app.listen(3000);
+app.use((0, body_parser_1.json)());
+app.use((0, body_parser_1.urlencoded)({ extended: true }));
+app.use("/posts", routes_1.default);
+app.use((err, req, res, next) => {
+    res.status(500).json({ message: err.message });
+});
+config_1.default.sync({ force: true }).then(() => {
+    console.log("Database connected succesfully");
+}).catch((err) => {
+    console.log("Err", err);
+});
+app.listen(8080);

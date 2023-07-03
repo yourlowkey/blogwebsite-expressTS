@@ -1,24 +1,29 @@
 import express from 'express'
-import { Category } from './models/Categories.model';
-import { Post } from './models/Posts.model';
-import { PostCategory } from './models/Post-Categories.model';
 import sequelize from './db/config';
+import { json, urlencoded } from 'body-parser';
+import postRouter from './routes/postRoute';
+import { error } from 'console';
 const app = express()
-async function run() {
-    try {
-        await sequelize.authenticate();
-        console.log('Connected to the database.');
 
-        // Synchronize the models with the database
-        sequelize.addModels([Category, Post, PostCategory]);
-        await sequelize.sync(); // This will create the "users" table in the database
+app.use(json())
 
-        // Your application code here
-    } catch (error) {
-        console.error('Error connecting to the database:', error);
-    }
+app.use(urlencoded({ extended: true }))
+
+app.use("/posts", postRouter)
+
+app.use((err: Error,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+) => {
+    res.status(500).json({ message: err.message })
 }
+)
+sequelize.sync({force:true}).then(() => {
+    console.log("Database connected succesfully");
+}).catch((err: Error) => {
+    console.log("Err", err);
 
-run()
+})
 
-app.listen(3000)
+app.listen(8080)

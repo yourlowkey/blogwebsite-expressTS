@@ -1,6 +1,6 @@
 import { Table,Model,Column,DataType,PrimaryKey, AutoIncrement, AllowNull, BelongsToMany } from "sequelize-typescript";
-import {Category} from './Categories.model'
-import {PostCategory} from './Post-Categories.model'
+import {Category} from './categoryModel'
+import {PostCategory} from './postCategoryModel'
 @Table({
     timestamps:true,
     tableName:"posts"
@@ -11,7 +11,7 @@ export class Post extends Model<Post> {
     @AutoIncrement
     @AllowNull(false)
     @Column(DataType.INTEGER)
-    postId!: number;
+    id!: number;
   
     @AllowNull(false)
     @Column(DataType.STRING)
