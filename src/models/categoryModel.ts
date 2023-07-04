@@ -6,7 +6,6 @@ import { PostCategory } from './postCategoryModel';
 export class Category extends Model<Category> {
   @PrimaryKey
   @AutoIncrement
-  @AllowNull(false)
   @Column(DataType.INTEGER)
   id!: number;
 

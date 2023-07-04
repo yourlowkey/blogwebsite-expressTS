@@ -19,8 +19,8 @@ app.use((err: Error,
     res.status(500).json({ message: err.message })
 }
 )
-sequelize.sync({force:true}).then(() => {
-    console.log("Database connected succesfully");
+sequelize.sync({ force: true }).then(() => {
+    console.log("Database connected successfully");
 }).catch((err: Error) => {
     console.log("Err", err);
 

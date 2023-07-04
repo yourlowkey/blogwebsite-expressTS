@@ -1,4 +1,4 @@
-import { Model, Table, ForeignKey, Column, PrimaryKey, AutoIncrement, DataType,AllowNull } from 'sequelize-typescript';
+import { Model, Table, ForeignKey, Column, PrimaryKey, AutoIncrement, DataType, AllowNull } from 'sequelize-typescript';
 import { Post } from './postModel';
 import { Category } from './categoryModel';
 
@@ -6,7 +6,6 @@ import { Category } from './categoryModel';
 export class PostCategory extends Model<PostCategory> {
   @PrimaryKey
   @AutoIncrement
-  @AllowNull(false)
   @Column(DataType.INTEGER)
   id!: number;
 
